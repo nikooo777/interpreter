@@ -1,12 +1,12 @@
-package com.niko.blocks;
+package blocks;
 
 import java.util.Arrays;
 
-public class CharBitmap
+public class CharBitmap_unused
 {
 	private char[][] matrix;
 
-	public CharBitmap(int width, int height)
+	public CharBitmap_unused(int width, int height)
 	{
 		matrix = new char[++height][++width];
 		for (int i = 0; i < width; i++)

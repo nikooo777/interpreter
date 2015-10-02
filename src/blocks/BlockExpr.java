@@ -1,4 +1,4 @@
-package com.niko.blocks;
+package blocks;
 
 public abstract class BlockExpr
 {

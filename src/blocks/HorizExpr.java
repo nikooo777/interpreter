@@ -1,4 +1,4 @@
-package com.niko.blocks;
+package blocks;
 
 public class HorizExpr extends BlockExpr
 {
