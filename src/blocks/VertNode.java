@@ -1,10 +1,10 @@
 package blocks;
 
-public class VertExpr extends BlockExpr
+public class VertNode extends BlockNode
 {
-	BlockExpr top, bottom;
+	BlockNode top, bottom;
 
-	public VertExpr(BlockExpr left, BlockExpr right)
+	public VertNode(BlockNode left, BlockNode right)
 	{
 		this.top = left;
 		this.bottom = right;
@@ -15,7 +15,7 @@ public class VertExpr extends BlockExpr
 	{
 		return Math.max(top.width(), bottom.width());
 	}
-	
+
 	@Override
 	public int height()
 	{
@@ -26,7 +26,7 @@ public class VertExpr extends BlockExpr
 	public void drawAt(int i, int j, CharBitmap bitmap)
 	{
 		top.drawAt(i, j, bitmap);
-		bottom.drawAt(i, j+top.height(), bitmap);
+		bottom.drawAt(i, j + top.height(), bitmap);
 	}
 
 }

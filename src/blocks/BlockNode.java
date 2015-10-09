@@ -1,6 +1,6 @@
 package blocks;
 
-public abstract class BlockExpr
+public abstract class BlockNode
 {
 	public abstract int height();
 	public abstract int width();

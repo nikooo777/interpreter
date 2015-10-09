@@ -18,49 +18,50 @@ import blocks.Token.Type;
 public class Parser
 {
 	private MockupTokenizer tokenizer = new MockupTokenizer(null);
+	// private tokenizer = new Tokenizer() //todo: FIXIT!
 
 	// Expr ::= VertExpr Eos .
-	public BlockExpr parse() throws IOException
+	public BlockNode parse() throws IOException
 	{
 		next();
-		BlockExpr blockExpr = vertExpr();
+		BlockNode blockExpr = vertExpr();
 		check(Type.Eos, "End of string");
 		return blockExpr;
 	}
 
 	// HorizExpr ::= PrimaryExpr (HorizOp PrimaryExpr)* .
-	private BlockExpr horizExpr() throws IOException
+	private BlockNode horizExpr() throws IOException
 	{
-		BlockExpr left = primaryExpr();
+		BlockNode left = primaryExpr();
 		while (isHorizOp())
 		{
 			next();
-			left = new HorizExpr(left, primaryExpr());
+			left = new HorizNode(left, primaryExpr());
 		}
 		return left;
 	}
 
 	// VertExpr ::= HorizExpr (VertOp HorizExpr)* .
-	private BlockExpr vertExpr() throws IOException
+	private BlockNode vertExpr() throws IOException
 	{
-		BlockExpr top = horizExpr();
+		BlockNode top = horizExpr();
 		while (isVertOp())
 		{
 			next();
-			top = new VertExpr(top, horizExpr());
+			top = new VertNode(top, horizExpr());
 		}
 		return top;
 	}
 
 	// PrimaryExpr ::= "(" VertExpr ")" | RectExpr .
-	private BlockExpr primaryExpr() throws IOException
+	private BlockNode primaryExpr() throws IOException
 	{
 		// @TODO: improve
 		return (type() == Type.OpenParen) ? subVertExpr() : rectExpr();
 	}
 
 	// RectExpr ::= Num StarOp Num .
-	private BlockExpr rectExpr() throws IOException
+	private BlockNode rectExpr() throws IOException
 	{
 		check(Type.Num, "Number");
 		int width = tokenizer.token().num();
@@ -69,7 +70,7 @@ public class Parser
 		next();
 		int height = tokenizer.token().num();
 		next();
-		return new RectExpr(width, height);
+		return new RectNode(width, height);
 	}
 
 	private void check(Type type, String string) throws IOException
@@ -93,9 +94,9 @@ public class Parser
 		return type() == Type.Horiz;
 	}
 
-	private BlockExpr subVertExpr() throws IOException
+	private BlockNode subVertExpr() throws IOException
 	{
-		BlockExpr vert;
+		BlockNode vert;
 		check(Type.OpenParen, "(");
 		next();
 		vert = vertExpr();

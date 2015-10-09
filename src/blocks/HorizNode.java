@@ -1,10 +1,10 @@
 package blocks;
 
-public class HorizExpr extends BlockExpr
+public class HorizNode extends BlockNode
 {
-	BlockExpr left, right;
+	BlockNode left, right;
 
-	public HorizExpr(BlockExpr left, BlockExpr right)
+	public HorizNode(BlockNode left, BlockNode right)
 	{
 		this.left = left;
 		this.right = right;
@@ -26,6 +26,6 @@ public class HorizExpr extends BlockExpr
 	public void drawAt(int i, int j, CharBitmap bitmap)
 	{
 		left.drawAt(i, j, bitmap);
-		right.drawAt(left.width()+i, j, bitmap);
+		right.drawAt(left.width() + i, j, bitmap);
 	}
 }
