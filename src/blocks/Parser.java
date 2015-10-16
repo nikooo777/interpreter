@@ -1,6 +1,7 @@
 package blocks;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import blocks.Token.Type;
 
@@ -17,12 +18,13 @@ import blocks.Token.Type;
  */
 public class Parser
 {
-	private MockupTokenizer tokenizer = new MockupTokenizer(null);
-	// private tokenizer = new Tokenizer() //todo: FIXIT!
+	// private MockupTokenizer tokenizer = new MockupTokenizer(null);
+	private Tokenizer tokenizer;
 
 	// Expr ::= VertExpr Eos .
-	public BlockNode parse() throws IOException
+	public BlockNode parse(Reader in) throws IOException
 	{
+		tokenizer = new Tokenizer(in);
 		next();
 		BlockNode blockExpr = vertExpr();
 		check(Type.Eos, "End of string");
@@ -68,6 +70,7 @@ public class Parser
 		next();
 		check(Type.Star, "*");
 		next();
+		check(Type.Num, "Number");
 		int height = tokenizer.token().num();
 		next();
 		return new RectNode(width, height);
@@ -105,7 +108,7 @@ public class Parser
 		return vert;
 	}
 
-	private void next()
+	private void next() throws IOException
 	{
 		tokenizer.next();
 	}

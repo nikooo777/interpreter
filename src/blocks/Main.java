@@ -1,6 +1,7 @@
 package blocks;
 
 import java.io.IOException;
+import java.io.StringReader;
 
 public class Main
 {
@@ -10,7 +11,7 @@ public class Main
 		BlockNode blocks;
 		try
 		{
-			blocks = new Parser().parse();
+			blocks = new Parser().parse(new StringReader("4 * 2 - 5 * 4 | 2 * 6 - 9 * 3"));
 			// Tokenizer2 tokenizer = new Tokenizer2(new StringReader("4 * 2 - 5 * 4 | 2 * 6 - 9 * 3"));
 			// blocks = new Parser().parse(tokenizer);
 			// BlockExpr blocks = new Parser(MockupTokenizer("4 * 2 - 5 * 4 | 2 * 6 - 9 * 3")).parse();
